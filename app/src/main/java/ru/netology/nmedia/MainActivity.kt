@@ -33,8 +33,9 @@ class MainActivity : AppCompatActivity() {
             author = "Нетология. Университет интернет-профессий будущего",
             content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
             published = "21 мая в 18:36",
-            likes = 0,
-            shares = 90_199,
+            likes = 17_399_999,
+            shares = 910_999,
+            views = 120,
             likedByMe = false
         )
 
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             published.text = post.published
             likedTxt.text =  prnCount(post.likes)
             sharedTxt.text = prnCount(post.shares)
+            viewedTxt.text = prnCount(post.views)
 
             likedImg.setImageResource(if (post.likedByMe) R.drawable.icon_liked_red else R.drawable.icon_liked)
 
@@ -73,13 +75,15 @@ class MainActivity : AppCompatActivity() {
                 strCount = count.toString()
             }
             count < 10_000 -> {
-                strCount = String.format("%.1fK", count.toDouble() / 1_000.0)
+                val truncated = ((count / 1_000.0) * 10).toInt() / 10.0
+                strCount = "${truncated}K"
             }
             count < 1_000_000->{
-                strCount = String.format("%dK",  count % 1_000)
+                strCount = String.format("%dK",  count / 1_000)
             }
             else ->{
-                strCount = String.format("%.1fM", count.toDouble() / 1_000_000.0)
+                val truncated = ((count / 1_000_000.0) * 10).toInt() / 10.0
+                strCount = "${truncated}M"
             }
         }
         return strCount

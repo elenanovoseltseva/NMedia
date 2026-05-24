@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
-        tools:src="@drawable/baseline_more_vert_24"
+        tools:src="@drawable/icon_more"
         />
 
     <androidx.constraintlayout.widget.Barrier

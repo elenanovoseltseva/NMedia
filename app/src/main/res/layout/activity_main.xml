@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
-        tools:src="@drawable/baseline_more_vert_24"
+        android:src="@drawable/icon_more"
         />
 
     <androidx.constraintlayout.widget.Barrier
@@ -173,12 +173,5 @@
         app:layout_constraintTop_toTopOf="@id/likedImg"
         app:layout_constraintBottom_toBottomOf="@id/likedImg" />
 
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="211dp"
-        android:layout_height="78dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="6dp"
-        tools:layout_editor_absoluteY="443dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
