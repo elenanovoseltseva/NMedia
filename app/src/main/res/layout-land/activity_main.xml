@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-        tools:src="@sample/posts.json/data/authorAvatar" />
+        tools:src="@sample/posts_avatars" />
 
     <TextView
         android:id="@+id/author"
@@ -172,13 +172,5 @@
 
         app:layout_constraintTop_toTopOf="@id/likedImg"
         app:layout_constraintBottom_toBottomOf="@id/likedImg" />
-
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="211dp"
-        android:layout_height="78dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="6dp"
-        tools:layout_editor_absoluteY="443dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
