@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">НМедия</string>
     <string name="startString">НМедия!</string>
+    <string name="description_post_author_avatar">" Пост автор аватар"</string>
 </resources>
