@@ -6,18 +6,17 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import ru.netology.nmedia.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.functions.prnCount
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val binding = ActivityMainBinding.inflate(layoutInflater)
 
+        val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
@@ -31,25 +30,22 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val viewModel by viewModels<PostViewModel>()
-        viewModel.data.observe(this) { post ->
+        val viewModel: PostViewModel by viewModels()
 
-            with(binding) {
-                author.text = post.author
-                content.text = post.content
-                published.text = post.published
-                likedTxt.text = prnCount(post.likes)
-                sharedTxt.text = prnCount(post.shares)
-                viewedTxt.text = prnCount(post.views)
-
-                likedImg.setImageResource(if (post.likedByMe) R.drawable.icon_liked_red else R.drawable.icon_liked)
+        val adapter = PostsAdapter(
+            likeListener = {
+                viewModel.likeById(it.id)
+            },
+            shareListener = {
+                viewModel.shareById(it.id)
             }
-        }
-        binding.likedImg.setOnClickListener {
-            viewModel.like()
-        }
-        binding.sharedImg.setOnClickListener {
-            viewModel.share()
+        )
+
+        binding.list.adapter = adapter
+
+        viewModel.data.observe(this) { posts ->
+            adapter.submitList(posts)
         }
     }
 }
+

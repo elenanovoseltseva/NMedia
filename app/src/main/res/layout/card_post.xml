@@ -1,65 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    android:padding="@dimen/padding"
-    tools:context=".activity.MainActivity">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding" >
 
     <ImageView
         android:id="@+id/avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="@dimen/size"
         android:layout_height="@dimen/size"
         android:contentDescription="@string/description_post_author_avatar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
 
-        tools:src="@sample/posts_avatars" />
+        android:src="@drawable/icon_avatar" />
 
     <TextView
         android:id="@+id/author"
+        app:layout_constraintBottom_toTopOf="@id/published"
+        app:layout_constraintEnd_toStartOf="@id/menu"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+
+        app:layout_constraintTop_toTopOf="@id/avatar"
+
+        app:layout_constraintVertical_chainStyle="packed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/padding"
 
         android:singleLine="true"
-
-        app:layout_constraintBottom_toTopOf="@id/published"
-        app:layout_constraintStart_toEndOf="@id/avatar"
-        app:layout_constraintTop_toTopOf="@id/avatar"
-        app:layout_constraintEnd_toStartOf="@id/menu"
-
-        app:layout_constraintVertical_chainStyle="packed"
         tools:text="@sample/posts.json/data/author" />
 
     <TextView
         android:id="@+id/published"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginStart="@dimen/padding"
-
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintStart_toEndOf="@id/avatar"
+
         app:layout_constraintTop_toBottomOf="@id/author"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding"
 
         tools:text="@sample/posts.json/data/published" />
 
     <ImageButton
         android:id="@+id/menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:background="@android:color/transparent"
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        tools:src="@drawable/icon_more"
-        />
+        android:src="@drawable/icon_more" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_header"
@@ -146,7 +141,6 @@
         app:layout_constraintTop_toTopOf="@id/likedImg"
         app:layout_constraintBottom_toBottomOf="@id/likedImg" />
 
-
     <!-- Viewed -->
 
     <ImageView
@@ -172,5 +166,6 @@
 
         app:layout_constraintTop_toTopOf="@id/likedImg"
         app:layout_constraintBottom_toBottomOf="@id/likedImg" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
