@@ -1,16 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:accessibilityLiveRegion="none"
+    android:backgroundTint="@color/black"
+    android:backgroundTintMode="src_over"
     tools:context=".activity.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/card_post"/>
-</FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/card_post" />
+
+    <ImageView
+        android:id="@+id/cancelEditImg"
+        android:layout_width="@dimen/size"
+        android:layout_height="@dimen/size"
+        android:src="@drawable/icon_canceled"
+        android:visibility="gone"
+
+        app:layout_constraintBottom_toTopOf="@id/content"
+        app:layout_constraintEnd_toEndOf="@id/content"
+        />
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginBottom="@dimen/padding"
+
+        android:background="@drawable/field_inp"
+        android:gravity="top|start"
+        android:hint="@string/content"
+
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:minLines="2"
+        android:padding="@dimen/padding"
+
+        android:singleLine="true"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/savedImg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/list" />
+
+    <ImageView
+        android:id="@+id/savedImg"
+        android:layout_width="@dimen/size"
+        android:layout_height="@dimen/size"
+        android:src="@drawable/icon_saved"
+
+        app:layout_constraintBottom_toBottomOf="@id/content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

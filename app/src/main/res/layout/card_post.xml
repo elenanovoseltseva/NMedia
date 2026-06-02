@@ -102,7 +102,7 @@
 
     <TextView
         android:id="@+id/likedTxt"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
 
         android:text="1000"
@@ -119,33 +119,33 @@
 
     <ImageView
         android:id="@+id/sharedImg"
-        android:layout_width="wrap_content"
+        android:layout_width="24dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_shared"
+        android:layout_marginStart="@dimen/size"
 
-        app:layout_constraintTop_toTopOf="@id/likedImg"
+        android:src="@drawable/icon_shared"
         app:layout_constraintBottom_toBottomOf="@id/likedImg"
 
         app:layout_constraintStart_toEndOf="@id/likedTxt"
-        android:layout_marginStart="@dimen/size" />
+        app:layout_constraintTop_toTopOf="@id/likedImg" />
 
     <TextView
         android:id="@+id/sharedTxt"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="2000"
-
-        app:layout_constraintStart_toEndOf="@id/sharedImg"
         android:layout_marginStart="@dimen/halfPadding"
 
-        app:layout_constraintTop_toTopOf="@id/likedImg"
-        app:layout_constraintBottom_toBottomOf="@id/likedImg" />
+        android:text="2000"
+        app:layout_constraintBottom_toBottomOf="@id/likedImg"
+
+        app:layout_constraintStart_toEndOf="@id/sharedImg"
+        app:layout_constraintTop_toTopOf="@id/likedImg" />
 
     <!-- Viewed -->
 
     <ImageView
         android:id="@+id/viewedImg"
-        android:layout_width="wrap_content"
+        android:layout_width="24dp"
         android:layout_height="wrap_content"
         android:src="@drawable/icon_viewed"
 
@@ -157,7 +157,7 @@
 
     <TextView
         android:id="@+id/viewedTxt"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
 
         app:layout_constraintEnd_toEndOf="parent"
