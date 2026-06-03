@@ -6,4 +6,5 @@
     <string name="content">Text</string>
     <string name="err_text_empty">Text is empty!</string>
     <string name="edit">Edit</string>
+    <string name="txtCancelEdit">Cancel</string>
 </resources>

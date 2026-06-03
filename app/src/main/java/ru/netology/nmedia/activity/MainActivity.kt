@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostListener
@@ -27,11 +28,14 @@ class MainActivity : AppCompatActivity() {
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            // Для клавиатуры:
+            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
+            val isImeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
             v.setPadding(
-                systemBars.left + v.paddingLeft,
-                systemBars.top + v.paddingTop,
-                systemBars.right + v.paddingRight,
-                systemBars.bottom + v.paddingBottom
+                v.paddingLeft,
+                systemBars.top,
+                v.paddingRight,
+                if (isImeVisible) imeInsets.bottom else systemBars.bottom
             )
             insets
         }
@@ -67,6 +71,11 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
+            if (posts.size > adapter.currentList.size) { // Применяем если размер списка увеличился
+                binding.list.post { // Отложенное действие, чтобы не прокрутило до добавления нового элемента
+                    binding.list.smoothScrollToPosition(0) // Скролл к верхней позиции
+                }
+            }
         }
 
         viewModel.edited.observe(this) { post ->
@@ -74,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 with(binding.content) {
                     setText(post.content)
                     AndroidUtils.showKeyboard(this)
-                    binding.cancelEditImg.visibility = View.VISIBLE
+                    binding.cancelEditGroup.visibility = View.VISIBLE
                 }
             }
         }
@@ -90,14 +99,15 @@ class MainActivity : AppCompatActivity() {
             binding.content.clearFocus()
             binding.content.setText("")
             AndroidUtils.hideKeyboard(binding.content)
-            binding.cancelEditImg.visibility = View.GONE
+            binding.cancelEditGroup.visibility = View.GONE
         }
 
         binding.cancelEditImg.setOnClickListener {
+            viewModel.cancelById()
             binding.content.clearFocus()
             binding.content.setText("")
             AndroidUtils.hideKeyboard(binding.content)
-            binding.cancelEditImg.visibility = View.GONE
+            binding.cancelEditGroup.visibility = View.GONE
         }
 
 
