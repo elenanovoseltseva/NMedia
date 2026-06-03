@@ -7,4 +7,5 @@
     <string name="content">Текст</string>
     <string name="err_text_empty">Пустое поле!</string>
     <string name="edit">Редактировать</string>
+    <string name="txtCancelEdit">Отмена редактирования</string>
 </resources>
