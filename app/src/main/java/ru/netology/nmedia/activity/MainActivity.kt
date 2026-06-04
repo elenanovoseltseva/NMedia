@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
+
             if (posts.size > adapter.currentList.size) { // Применяем если размер списка увеличился
                 binding.list.post { // Отложенное действие, чтобы не прокрутило до добавления нового элемента
                     binding.list.smoothScrollToPosition(0) // Скролл к верхней позиции
@@ -96,14 +97,16 @@ class MainActivity : AppCompatActivity() {
             }
 
             viewModel.saveById(content)
+
             binding.content.clearFocus()
             binding.content.setText("")
             AndroidUtils.hideKeyboard(binding.content)
             binding.cancelEditGroup.visibility = View.GONE
+
         }
 
         binding.cancelEditImg.setOnClickListener {
-            viewModel.cancelById()
+            viewModel.edited.value = viewModel.emptyPost
             binding.content.clearFocus()
             binding.content.setText("")
             AndroidUtils.hideKeyboard(binding.content)
