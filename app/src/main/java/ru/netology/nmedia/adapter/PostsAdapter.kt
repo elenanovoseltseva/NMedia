@@ -56,13 +56,18 @@ class PostViewHolder(
             content.text = post.content
             published.text = post.published
 
-            likedTxt.text = prnCount(post.likes)
-            sharedTxt.text = prnCount(post.shares)
-            viewedTxt.text = prnCount(post.views)
+            //likedTxt.text = prnCount(post.likes)
+            //sharedTxt.text = prnCount(post.shares)
+            //viewedTxt.text = prnCount(post.views)
 
-            likedImg.setImageResource(
-                if (post.likedByMe) R.drawable.icon_liked_red else R.drawable.icon_liked
-            )
+           // likedImg.setImageResource(
+           //     if (post.likedByMe) R.drawable.icon_liked_red else R.drawable.icon_liked
+           // )
+
+            likedImg.isChecked = post.likedByMe
+
+            likedImg.text = prnCount(post.likes)
+            sharedImg.text = prnCount(post.shares)
 
             likedImg.setOnClickListener {
                 listener.onLike(post)
