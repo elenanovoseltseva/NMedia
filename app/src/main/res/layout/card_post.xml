@@ -46,11 +46,10 @@
         tools:text="@sample/posts.json/data/published" />
 
     <com.google.android.material.button.MaterialButton
+        android:contentDescription="Menu"
         android:id="@+id/menu"
         android:layout_width="36dp"
         android:layout_height="48dp"
-
-        android:contentDescription="Menu"
 
         app:icon="@drawable/icon_more"
         app:iconTint="@android:color/black"
@@ -137,12 +136,12 @@
     <!-- Viewed -->
 
     <ImageView
+        android:contentDescription="View"
         android:id="@+id/viewedImg"
         android:layout_width="24dp"
 
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/halfPadding"
-        android:contentDescription="View"
 
         android:src="@drawable/icon_viewed"
         app:layout_constraintBottom_toBottomOf="@id/likedImg"
