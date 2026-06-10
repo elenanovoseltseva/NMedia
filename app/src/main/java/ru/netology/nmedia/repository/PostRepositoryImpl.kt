@@ -10,7 +10,7 @@ class PostRepositoryImpl : PostRepository {
         Post(
             id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
-            content = "Привет, это новая Нетология!  Мой пост 7.",
+            content = "7 Мой пост 7.",
             published = "24 мая в 18:36",
             likes = 14,
             shares = 4,
@@ -20,7 +20,7 @@ class PostRepositoryImpl : PostRepository {
         Post(
             id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
-            content = "Привет, это новая Нетология!  Мой пост 6.",
+            content = "6 Мой пост 6.",
             published = "23 мая в 18:36",
             likes = 13,
             shares = 3,
@@ -30,7 +30,7 @@ class PostRepositoryImpl : PostRepository {
         Post(
             id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
-            content = "Привет, это новая Нетология!  Мой пост 5.",
+            content = "5 Мой пост 5.",
             published = "22 мая в 18:36",
             likes = 500,
             shares = 912,
@@ -40,7 +40,7 @@ class PostRepositoryImpl : PostRepository {
         Post(
             id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
-            content = "Привет, это новая Нетология!  Мой пост 4.",
+            content = "4 Мой пост 4.",
             published = "24 мая в 18:36",
             likes = 14,
             shares = 4,
@@ -50,7 +50,7 @@ class PostRepositoryImpl : PostRepository {
         Post(
             id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
-            content = "Привет, это новая Нетология!  Мой пост 3.",
+            content = "3 Мой пост 3.",
             published = "23 мая в 18:36",
             likes = 13,
             shares = 3,
@@ -60,7 +60,7 @@ class PostRepositoryImpl : PostRepository {
         Post(
             id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
-            content = "Привет, это новая Нетология!  Мой пост 2.",
+            content = "2 Мой пост 2.",
             published = "22 мая в 18:36",
             likes = 12,
             shares = 912,

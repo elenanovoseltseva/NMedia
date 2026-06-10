@@ -1,9 +1,11 @@
 package ru.netology.nmedia.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -42,6 +44,11 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel: PostViewModel by viewModels()
 
+        val postContract = registerForActivityResult(NewPostContract) { result ->
+            result ?: return@registerForActivityResult
+            viewModel.saveById(result)
+        }
+
         val adapter = PostsAdapter(
             object : PostListener {
 
@@ -50,7 +57,17 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onShare(post: Post) {
-                    viewModel.shareById(post.id)
+                    //viewModel.shareById(post.id)
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, post.content)
+                    }
+
+                    val chooser =
+                        Intent.createChooser(intent, getString(R.string.chooser_share_post))
+                    startActivity(chooser)
+
                 }
 
                 override fun onRemove(post: Post) {
@@ -63,6 +80,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onEdit(post: Post) {
                     viewModel.editById(post)
+                    postContract.launch(post.content)
                 }
             }
         )
@@ -79,41 +97,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.edited.observe(this) { post ->
-            if (post.id != 0L) {
-                with(binding.content) {
-                    setText(post.content)
-                    AndroidUtils.showKeyboard(this)
-                    binding.cancelEditGroup.visibility = View.VISIBLE
-                }
-            }
+        binding.addPost.setOnClickListener {
+            postContract.launch("")
         }
-
-        binding.savedImg.setOnClickListener {
-            val content = binding.content.text?.toString()
-            if (content.isNullOrBlank()) {
-                Toast.makeText(this, R.string.err_text_empty, Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            viewModel.saveById(content)
-
-            binding.content.clearFocus()
-            binding.content.setText("")
-            AndroidUtils.hideKeyboard(binding.content)
-            binding.cancelEditGroup.visibility = View.GONE
-
-        }
-
-        binding.cancelEditImg.setOnClickListener {
-            viewModel.edited.value = viewModel.emptyPost
-            binding.content.clearFocus()
-            binding.content.setText("")
-            AndroidUtils.hideKeyboard(binding.content)
-            binding.cancelEditGroup.visibility = View.GONE
-        }
-
-
     }
 }
 

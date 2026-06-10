@@ -8,4 +8,6 @@
     <string name="err_text_empty">Пустое поле!</string>
     <string name="edit">Редактировать</string>
     <string name="txtCancelEdit">Отмена редактирования</string>
+    <string name="chooser_share_post">Поделиться постом</string>
+    <string name="description_post_save">Добавить пост</string>
 </resources>
