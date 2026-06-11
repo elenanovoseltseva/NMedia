@@ -9,5 +9,7 @@
     <string name="edit">Редактировать</string>
     <string name="txtCancelEdit">Отмена редактирования</string>
     <string name="chooser_share_post">Поделиться постом</string>
+    <string name="chooser_view_video">Открыть видео в ...</string>
     <string name="description_post_save">Добавить пост</string>
+    <string name="videoPlay">Запустить видео</string>
 </resources>

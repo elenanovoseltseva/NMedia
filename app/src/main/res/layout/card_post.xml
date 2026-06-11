@@ -46,23 +46,25 @@
         tools:text="@sample/posts.json/data/published" />
 
     <com.google.android.material.button.MaterialButton
-        android:contentDescription="Menu"
         android:id="@+id/menu"
         android:layout_width="36dp"
         android:layout_height="48dp"
+        android:contentDescription="Menu"
 
-        app:icon="@drawable/icon_more"
-        app:iconTint="@android:color/black"
-
+        android:gravity="center"
         app:backgroundTint="#E5E4E3"
 
-        app:iconGravity="textStart"
-        android:gravity="center"
+        app:icon="@drawable/icon_more"
 
+        app:iconGravity="textStart"
         app:iconPadding="0dp"
 
+        app:iconTint="@android:color/black"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Barrier After Head -->
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_header"
@@ -76,16 +78,58 @@
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding"
-        android:layout_marginBottom="@dimen/padding"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="4dp"
         android:autoLink="web"
 
-        app:layout_constraintBottom_toTopOf="@id/barrier_content"
         app:layout_constraintTop_toBottomOf="@id/barrier_header"
+        app:layout_constraintBottom_toTopOf="@id/videoImg"
 
         tools:text="@sample/posts.json/data/content" />
 
-    <!-- Barrier 2 -->
+    <!-- Video -->
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/videoGroup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:constraint_referenced_ids="videoImg"
+        />
+
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/videoImg"
+        style="@style/Widget.AppTheme.PlayVideo"
+        app:icon="@drawable/icon_play"
+        android:contentDescription="Play Video"
+
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+
+        android:layout_marginStart="@dimen/halfPadding"
+        android:layout_marginTop="0dp"
+        android:paddingStart="@dimen/padding"
+
+        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintBottom_toTopOf="@id/barrier_content"
+        app:layout_constraintStart_toStartOf="parent"
+
+        android:gravity="center"
+
+        app:iconGravity="textStart"
+        app:iconPadding="4dp"
+        android:text="@string/videoPlay"
+        android:textStyle="bold"
+
+        app:iconTint="@android:color/black"
+
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        />
+
+    <!-- Barrier After Video -->
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_content"
@@ -93,7 +137,7 @@
         android:layout_height="wrap_content"
 
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="content" />
+        app:constraint_referenced_ids="content, videoGroup" />
 
     <!-- Liked -->
 
@@ -102,15 +146,15 @@
         style="@style/Widget.AppTheme.LikeCheckBox"
 
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/halfPadding"
-        android:button="@drawable/icon_like_selector"
-
-        android:contentDescription="Like"
 
         android:gravity="center"
         android:paddingStart="@dimen/halfPadding"
+        android:layout_marginTop="0dp"
+
+        android:button="@drawable/icon_like_selector"
+
+        android:contentDescription="Like"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier_content" />
@@ -136,12 +180,12 @@
     <!-- Viewed -->
 
     <ImageView
-        android:contentDescription="View"
         android:id="@+id/viewedImg"
         android:layout_width="24dp"
-
         android:layout_height="wrap_content"
+
         android:layout_marginEnd="@dimen/halfPadding"
+        android:contentDescription="View"
 
         android:src="@drawable/icon_viewed"
         app:layout_constraintBottom_toBottomOf="@id/likedImg"
@@ -160,6 +204,5 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/likedImg" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

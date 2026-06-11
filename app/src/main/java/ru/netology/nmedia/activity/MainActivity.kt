@@ -1,6 +1,7 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onShare(post: Post) {
-                    //viewModel.shareById(post.id)
+                    viewModel.shareById(post.id)
                     val intent = Intent().apply {
                         action = Intent.ACTION_SEND
                         type = "text/plain"
@@ -67,7 +68,6 @@ class MainActivity : AppCompatActivity() {
                     val chooser =
                         Intent.createChooser(intent, getString(R.string.chooser_share_post))
                     startActivity(chooser)
-
                 }
 
                 override fun onRemove(post: Post) {
@@ -81,6 +81,18 @@ class MainActivity : AppCompatActivity() {
                 override fun onEdit(post: Post) {
                     viewModel.editById(post)
                     postContract.launch(post.content)
+                }
+
+                override fun onVideo(post: Post) {
+                    if (post.video.isNullOrBlank()) return
+
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(post.video)).apply {
+                        type = "video/*"
+                    }
+
+                    val chooser =
+                        Intent.createChooser(intent,getString(R.string.chooser_view_video))
+                    startActivity(chooser)
                 }
             }
         )
