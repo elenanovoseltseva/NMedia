@@ -1,14 +1,17 @@
 package ru.netology.nmedia.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.dto.Post
 
 import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.repository.PostRepository
 import ru.netology.nmedia.repository.PostRepositoryImpl
+import ru.netology.nmedia.repository.PostRepositorySharedPrefs
 
-class PostViewModel : ViewModel() {
-    private val repository: PostRepository = PostRepositoryImpl()
+class PostViewModel (application: Application): AndroidViewModel(application) {
+    private val repository: PostRepository = PostRepositorySharedPrefs(application)
     val emptyPost = Post()
     val data = repository.getAll()
     fun likeById(id: Long) = repository.likeById(id)
