@@ -13,4 +13,11 @@
         <item name="minHeight">@dimen/halfPadding</item>
     </style>
 
+    <style name="Widget.AppTheme.PlayVideo" parent="@style/Widget.Material3.Button.TextButton.Icon">
+        <item name="buttonTint">#000</item>
+        <item name="android:textColor">#666666</item>
+        <item name="minWidth">@dimen/halfPadding</item>
+        <item name="minHeight">@dimen/halfPadding</item>
+    </style>
+
 </resources>

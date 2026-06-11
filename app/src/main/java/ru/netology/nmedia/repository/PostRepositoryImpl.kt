@@ -15,6 +15,7 @@ class PostRepositoryImpl : PostRepository {
             likes = 14,
             shares = 4,
             views = 124,
+            video= "https://rutube.ru/video/6550a91e7e523f9503bed47e4c46d0cb",
             likedByMe = false
         ),
         Post(
@@ -25,6 +26,7 @@ class PostRepositoryImpl : PostRepository {
             likes = 13,
             shares = 3,
             views = 123,
+            video= "https://www.youtube.com/watch?v=Js6KqgAyaBQ",
             likedByMe = false
         ),
         Post(
