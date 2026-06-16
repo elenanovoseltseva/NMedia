@@ -33,4 +33,9 @@ class PostViewModel (application: Application): AndroidViewModel(application) {
     fun editById(post: Post) {
         edited.value = post
     }
+
+    fun viewById(post: Post){
+        edited.value = post
+    }
+
 }
