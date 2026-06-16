@@ -12,4 +12,5 @@
     <string name="chooser_view_video">Открыть видео в ...</string>
     <string name="description_post_save">Добавить пост</string>
     <string name="videoPlay">Запустить видео</string>
+    <string name="closeWin">Закрыть</string>
 </resources>

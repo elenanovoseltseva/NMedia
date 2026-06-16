@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.functions.prnCount
+import ru.netology.nmedia.util.prnCount
 
 typealias LikeListener = (Post) -> Unit
 
@@ -25,11 +25,12 @@ interface PostListener{
     fun onEdit(post: Post)
     fun onSave(post: Post)
     fun onVideo(post: Post)
+    fun onView(post: Post)
 }
 
 class PostsAdapter(
-    private val listener: PostListener
-) :
+    private val listener: PostListener) :
+
     ListAdapter<Post, PostViewHolder>(PostViewHolder.PostDiffCallback) {
 
     override fun onCreateViewHolder(
@@ -58,14 +59,6 @@ class PostViewHolder(
             content.text = post.content
             published.text = post.published
 
-            //likedTxt.text = prnCount(post.likes)
-            //sharedTxt.text = prnCount(post.shares)
-            //viewedTxt.text = prnCount(post.views)
-
-           // likedImg.setImageResource(
-           //     if (post.likedByMe) R.drawable.icon_liked_red else R.drawable.icon_liked
-           // )
-
             if (!post.video.isNullOrBlank()) {
                 videoGroup.visibility = View.VISIBLE
             } else {
@@ -87,6 +80,10 @@ class PostViewHolder(
 
             videoImg.setOnClickListener {
                 listener.onVideo(post)
+            }
+
+            content.setOnClickListener {
+                listener.onView(post)
             }
 
             menu.setOnClickListener {
@@ -116,4 +113,6 @@ class PostViewHolder(
         override fun areItemsTheSame(oldItem: Post, newItem: Post) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Post, newItem: Post) = oldItem == newItem
     }
+
+    companion object
 }

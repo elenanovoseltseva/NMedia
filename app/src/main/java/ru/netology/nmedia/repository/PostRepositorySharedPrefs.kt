@@ -8,7 +8,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.netology.nmedia.dto.Post
 
-class PostRepositorySharedPrefs(private val context: Context): PostRepository {
+class PostRepositorySharedPrefs(private val context: Context) : PostRepository {
 
     private val prefs = context.getSharedPreferences("repo", Context.MODE_PRIVATE)
     private var nextId = 1L
@@ -29,7 +29,7 @@ class PostRepositorySharedPrefs(private val context: Context): PostRepository {
         }
     }
 
-    private fun sync(){
+    private fun sync() {
         prefs.edit {
             putString(KEY_POSTS, gson.toJson(posts))
         }
@@ -38,12 +38,14 @@ class PostRepositorySharedPrefs(private val context: Context): PostRepository {
     override fun likeById(id: Long) {
         posts = posts.map {
             if (it.id != id) it
-            else it.copy(
-                likedByMe = !it.likedByMe,
-                likes = if (it.likedByMe) it.likes - 1 else it.likes + 1
-            )
-        }
+            else {
+                it.copy(
 
+                    likedByMe = !it.likedByMe,
+                    likes = if (it.likedByMe) it.likes - 1 else it.likes + 1
+                )
+            }
+        }
         data.value = posts
     }
 
@@ -71,8 +73,7 @@ class PostRepositorySharedPrefs(private val context: Context): PostRepository {
                     published = "Now"
                 )
             ) + posts
-        }
-        else {
+        } else {
             posts = posts.map {
                 if (it.id != post.id) it else it.copy(content = post.content)
             }
@@ -85,7 +86,7 @@ class PostRepositorySharedPrefs(private val context: Context): PostRepository {
         data.value = posts
     }
 
-    companion object{
+    companion object {
         private const val KEY_POSTS = "posts"
         private val gson = Gson()
         private val typeToken = TypeToken.getParameterized(List::class.java, Post::class.java).type

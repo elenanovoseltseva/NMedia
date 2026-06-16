@@ -11,4 +11,5 @@
     <string name="chooser_view_video">Open video in ...</string>
     <string name="description_post_save">Add post</string>
     <string name="videoPlay">Play video</string>
+    <string name="closeWin">Close</string>
 </resources>
