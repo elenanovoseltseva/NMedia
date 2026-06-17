@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -24,8 +25,13 @@ class NewPostFragment : Fragment() {
 
         val viewModel: PostViewModel by activityViewModels() //viewModels(ownerProducer = ::requireParentFragment)
 
-        val content = arguments?.getString("content").orEmpty()
-        binding.editText.setText(content)
+        val content = arguments?.getString("content")
+        val draft = viewModel.draft.value
+
+        val textToShow = content?.takeIf { it.isNotBlank() }
+            ?: draft.orEmpty()
+
+        binding.editText.setText(textToShow)
 
         AndroidUtils.showKeyboard(binding.editText)
 
@@ -38,6 +44,12 @@ class NewPostFragment : Fragment() {
 
             findNavController().navigateUp()
         }
+
+        binding.editText.doOnTextChanged { text, _, _, _ ->
+            viewModel.changeDraft(text.toString())
+        }
+
+
 
         return binding.root
     }

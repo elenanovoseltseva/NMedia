@@ -20,19 +20,15 @@ import ru.netology.nmedia.util.sharePost
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class FeedFragment : Fragment() {
+    private val viewModel: PostViewModel by activityViewModels() //by viewModels(ownerProducer = ::requireParentFragment)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-
-        val binding = FragmentFeedBinding.inflate(inflater, container, false)
-
-        val viewModel: PostViewModel by activityViewModels() //by viewModels(ownerProducer = ::requireParentFragment)
-
-      // val postContract = registerForActivityResult(ru.netology.nmedia.fragment.NewPostContract) { result ->
-       //     result ?: return@registerForActivityResult
-       //     viewModel.saveById(result)
-       // }
+        val binding = FragmentFeedBinding.inflate(inflater,
+            container,
+            false)
 
         val adapter = PostsAdapter(
             object : PostListener {
