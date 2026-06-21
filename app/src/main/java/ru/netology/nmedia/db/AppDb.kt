@@ -36,10 +36,11 @@ class DbHelper(context: Context, dbVersion: Int, dbName: String, private val DDL
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        TODO("Not implemented")
+        db.execSQL("DROP TABLE IF EXISTS posts")
+        DDLs.forEach { db.execSQL(it) }
     }
 
     override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        TODO("Not implemented")
+        onUpgrade(db, oldVersion, newVersion)
     }
 }

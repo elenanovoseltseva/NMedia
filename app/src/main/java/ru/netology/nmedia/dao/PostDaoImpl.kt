@@ -129,16 +129,42 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
     }
 
     private fun map(cursor: Cursor): Post {
-        with(cursor) {
-            return Post(
-                id = getLong(getColumnIndexOrThrow(PostColumns.COLUMN_ID)),
-                author = getString(getColumnIndexOrThrow(PostColumns.COLUMN_AUTHOR)),
-                content = getString(getColumnIndexOrThrow(PostColumns.COLUMN_CONTENT)),
-                published = getString(getColumnIndexOrThrow(PostColumns.COLUMN_PUBLISHED)),
-                likes = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_LIKES)),
-                likedByMe = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_LIKED_BY_ME)) != 0,
-                video = getString(getColumnIndexOrThrow(PostColumns.COLUMN_VIDEO)),
-            )
-        }
+        val id = cursor.getLong(cursor.getColumnIndexOrThrow(PostColumns.COLUMN_ID))
+
+        val authorIndex = cursor.getColumnIndex(PostColumns.COLUMN_AUTHOR)
+        val contentIndex = cursor.getColumnIndex(PostColumns.COLUMN_CONTENT)
+        val publishedIndex = cursor.getColumnIndex(PostColumns.COLUMN_PUBLISHED)
+        val videoIndex = cursor.getColumnIndex(PostColumns.COLUMN_VIDEO)
+
+        val author = if (authorIndex != -1 && !cursor.isNull(authorIndex)) {
+            cursor.getString(authorIndex)
+        } else ""
+
+        val content = if (contentIndex != -1 && !cursor.isNull(contentIndex)) {
+            cursor.getString(contentIndex)
+        } else ""
+
+        val published = if (publishedIndex != -1 && !cursor.isNull(publishedIndex)) {
+            cursor.getString(publishedIndex)
+        } else ""
+
+        val video = if (videoIndex != -1 && !cursor.isNull(videoIndex)) {
+            cursor.getString(videoIndex)
+        } else ""
+
+        val likes = cursor.getInt(cursor.getColumnIndexOrThrow(PostColumns.COLUMN_LIKES))
+        val shares = cursor.getInt(cursor.getColumnIndexOrThrow(PostColumns.COLUMN_SHARES))
+        val likedByMe = cursor.getInt(cursor.getColumnIndexOrThrow(PostColumns.COLUMN_LIKED_BY_ME)) != 0
+
+        return Post(
+            id = id,
+            author = author,
+            content = content,
+            published = published,
+            likes = likes,
+            likedByMe = likedByMe,
+            video = video,
+            shares = shares
+        )
     }
 }
