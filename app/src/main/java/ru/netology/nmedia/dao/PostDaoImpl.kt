@@ -17,7 +17,7 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
             ${PostColumns.COLUMN_LIKED_BY_ME} BOOLEAN NOT NULL DEFAULT 0,
             ${PostColumns.COLUMN_SHARES} INTEGER NOT NULL DEFAULT 0,
             ${PostColumns.COLUMN_VIEWS} INTEGER NOT NULL DEFAULT 0,
-            ${PostColumns.COLUMN_VIDEO} INTEGER NOT NULL DEFAULT 0  
+            ${PostColumns.COLUMN_VIDEO} TEXT DEFAULT NULL  
         );
         """.trimIndent()
     }
@@ -117,6 +117,9 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
         """.trimIndent(), arrayOf(id)
         )
     }
+
+    override fun editById(id: Long) {}
+
     override fun removeById(id: Long) {
         db.delete(
             PostColumns.TABLE,
@@ -133,7 +136,8 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
                 content = getString(getColumnIndexOrThrow(PostColumns.COLUMN_CONTENT)),
                 published = getString(getColumnIndexOrThrow(PostColumns.COLUMN_PUBLISHED)),
                 likes = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_LIKES)),
-                likedByMe = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_LIKED_BY_ME)) != 0
+                likedByMe = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_LIKED_BY_ME)) != 0,
+                video = getString(getColumnIndexOrThrow(PostColumns.COLUMN_VIDEO)),
             )
         }
     }
