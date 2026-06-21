@@ -1,6 +1,7 @@
 package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.functions.prnCount
+import ru.netology.nmedia.util.prnCount
 
 typealias LikeListener = (Post) -> Unit
 
@@ -23,11 +24,13 @@ interface PostListener{
     fun onShare(post: Post)
     fun onEdit(post: Post)
     fun onSave(post: Post)
+    fun onVideo(post: Post)
+    fun onView(post: Post)
 }
 
 class PostsAdapter(
-    private val listener: PostListener
-) :
+    private val listener: PostListener) :
+
     ListAdapter<Post, PostViewHolder>(PostViewHolder.PostDiffCallback) {
 
     override fun onCreateViewHolder(
@@ -56,13 +59,16 @@ class PostViewHolder(
             content.text = post.content
             published.text = post.published
 
-            likedTxt.text = prnCount(post.likes)
-            sharedTxt.text = prnCount(post.shares)
-            viewedTxt.text = prnCount(post.views)
+            if (!post.video.isNullOrBlank()) {
+                videoGroup.visibility = View.VISIBLE
+            } else {
+                videoGroup.visibility = View.GONE
+            }
 
-            likedImg.setImageResource(
-                if (post.likedByMe) R.drawable.icon_liked_red else R.drawable.icon_liked
-            )
+            likedImg.isChecked = post.likedByMe
+
+            likedImg.text = prnCount(post.likes)
+            sharedImg.text = prnCount(post.shares)
 
             likedImg.setOnClickListener {
                 listener.onLike(post)
@@ -70,6 +76,14 @@ class PostViewHolder(
 
             sharedImg.setOnClickListener {
                 listener.onShare(post)
+            }
+
+            videoImg.setOnClickListener {
+                listener.onVideo(post)
+            }
+
+            content.setOnClickListener {
+                listener.onView(post)
             }
 
             menu.setOnClickListener {
@@ -99,4 +113,6 @@ class PostViewHolder(
         override fun areItemsTheSame(oldItem: Post, newItem: Post) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Post, newItem: Post) = oldItem == newItem
     }
+
+    companion object
 }

@@ -8,7 +8,7 @@
     android:accessibilityLiveRegion="none"
     android:backgroundTint="@color/black"
     android:backgroundTintMode="src_over"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.AppActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
