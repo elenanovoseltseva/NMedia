@@ -22,14 +22,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/padding"
 
-        android:singleLine="true"
-
         app:layout_constraintBottom_toTopOf="@id/published"
         app:layout_constraintEnd_toStartOf="@id/menu"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@id/avatar"
 
+        android:singleLine="true"
         app:layout_constraintVertical_chainStyle="packed"
+
         tools:text="@sample/posts.json/data/author" />
 
     <TextView
