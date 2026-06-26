@@ -13,4 +13,9 @@
     <string name="description_post_save">Добавить пост</string>
     <string name="videoPlay">Запустить видео</string>
     <string name="closeWin">Закрыть</string>
+
+    <string name="google_play_unavailable">Google Api не доступен</string>
+    <string name="notification_user_liked">Пользователь %1$s лайкнул %2$s\'s post</string>
+    <string name="channel_remote_name">Сервер уведомления</string>
+    <string name="channel_remote_description">Уведомнения с сервера</string>
 </resources>
