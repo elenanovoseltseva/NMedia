@@ -38,22 +38,33 @@ class FCMService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
+
         message.data[action]?.let {
-            when (Action.valueOf(it)) {
-                Action.LIKE -> handleLike(gson.fromJson(message.data[content], Like::class.java))
+            when (it) {
+                "LIKE" -> handleLike(
+                    gson.fromJson(
+                        message.data[content],
+                        Like::class.java
+                    )
+                )
+
+                else -> {
+                    Log.w("FCM", "Unknown action: $it")
+                    handleUnknown(it)
+                }
             }
         }
-        Log.d("FCM", "RECEIVED")
     }
 
+
     override fun onNewToken(token: String) {
+        //Log.d("FCM_TOKEN", "New token: $token")
         println(token)
     }
 
-
     private fun handleLike(content: Like) {
         val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.icon_notification)
+            .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(
                 getString(
                     R.string.notification_user_liked,
@@ -67,6 +78,16 @@ class FCMService : FirebaseMessagingService() {
         notify(notification)
     }
 
+    private fun handleUnknown(action: String) {
+        val notification = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("Unknown action: $action")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .build()
+
+        notify(notification)
+    }
+
     private fun notify(notification: Notification) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
             checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
@@ -74,10 +95,6 @@ class FCMService : FirebaseMessagingService() {
             NotificationManagerCompat.from(this).notify(Random.nextInt(100_000), notification)
         }
     }
-
-//    override fun onMessageReceived(message: RemoteMessage) {
- //       Log.d("FCM", "RECEIVED")
- //   }
 }
 
 enum class Action {
@@ -90,3 +107,5 @@ data class Like(
     val postId: Long,
     val postAuthor: String,
 )
+
+

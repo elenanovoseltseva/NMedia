@@ -27,12 +27,11 @@
             </intent-filter>
         </activity>
 
-        <!-- MOVE THE SERVICE TAG HERE (Inside <application>) -->
         <service
             android:name=".service.FCMService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
