@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "ru.netology.nmedia"
-    compileSdk = 37
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "ru.netology.nmedia"
         minSdk = 24
-        targetSdk = 37
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -53,9 +53,11 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    implementation(platform(libs.firebase))
-    implementation(libs.firebase.messaging)
+    //implementation(platform(libs.firebase))
+   // implementation(libs.firebase.messaging)
+
     implementation(libs.play.services)
+    implementation(libs.google.firebase.messaging)
     coreLibraryDesugaring(libs.desugaring)
 
     testImplementation(libs.junit)
