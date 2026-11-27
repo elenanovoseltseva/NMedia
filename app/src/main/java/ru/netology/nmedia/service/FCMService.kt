@@ -48,6 +48,13 @@ class FCMService : FirebaseMessagingService() {
                     )
                 )
 
+                "NEW_POST" -> handleNewPost(
+                    gson.fromJson(
+                        message.data[content],
+                        NewPost::class.java
+                    )
+                )
+
                 else -> {
                     Log.w("FCM", "Unknown action: $it")
                     handleUnknown(it)
@@ -63,6 +70,7 @@ class FCMService : FirebaseMessagingService() {
     }
 
     private fun handleLike(content: Like) {
+
         val notification = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(
@@ -71,6 +79,27 @@ class FCMService : FirebaseMessagingService() {
                     content.userName,
                     content.postAuthor,
                 )
+
+            )
+
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .build()
+
+        notify(notification)
+    }
+
+    private fun handleNewPost(content: NewPost) {
+        val preview = content.message.take(100).let {
+            if (content.message.length > 10) "$it…" else it
+        }
+
+        val notification = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("${content.userName}  ${getString(R.string.note_new_post)}")
+            .setContentText(preview)
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(content.message)
             )
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
@@ -99,13 +128,21 @@ class FCMService : FirebaseMessagingService() {
 
 enum class Action {
     LIKE,
+    NEW_POST,
 }
 
 data class Like(
     val userId: Long,
     val userName: String,
     val postId: Long,
-    val postAuthor: String,
+    val postAuthor: String
+)
+
+data class NewPost(
+    val userId: Long,
+    val userName: String,
+    val postId: Long,
+    val message: String
 )
 
 

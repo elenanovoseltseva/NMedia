@@ -18,4 +18,5 @@
     <string name="notification_user_liked">Пользователь %1$s лайкнул %2$s\'s post</string>
     <string name="channel_remote_name">Сервер уведомления</string>
     <string name="channel_remote_description">Уведомнения с сервера</string>
+    <string name="note_new_post">опубликовал новый пост:</string>
 </resources>
